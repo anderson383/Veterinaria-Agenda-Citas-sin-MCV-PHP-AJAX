@@ -1,0 +1,25 @@
+.containerDos{
+    max-width: 420px;
+    margin: 50px auto;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 40px;
+}
+
+.form-control:focus{
+    border: 2px solid #dc3545;
+    outline:none !important;
+
+    box-shadow: none;
+
+}
+form a{
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+}
+.text-verde{
+    color: #55ff4f;
+}
+ul span{
+    font-weight: bold !important;
+}
