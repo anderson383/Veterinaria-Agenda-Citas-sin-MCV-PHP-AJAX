@@ -9,6 +9,7 @@ $(document).ready(function(){
         xhr.onload = function(){
             if(this.status === 200){
                 let respuesta =JSON.parse(xhr.responseText);
+                let titulo = document.querySelector('#tituloCitas');
                 if(respuesta.length === 0){
                     $(titulo).removeClass('d-none');
                     $('#tabla-contente').addClass('d-none');
@@ -21,7 +22,7 @@ $(document).ready(function(){
     }
     function cargarTabla(datos){
         let tabla = document.querySelector('#table-mascota');
-        let titulo = document.querySelector('#tituloCitas');
+
         i=0;
         for(let mascota of datos){
             i++;
