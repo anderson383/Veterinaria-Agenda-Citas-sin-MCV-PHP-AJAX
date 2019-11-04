@@ -46,7 +46,7 @@ class Consulta{
         return json_encode($respuesta);
     }
     function consultarMascota(){
-        $this->consulta = "SELECT `idMascota`, `nombreMascota`, `colorMascota`, `razaMascota`, `idEspecie`, `fechaAgenda`, `idPropietario`,`nombreEspecie`, `nombrePersona` FROM `mascota` INNER JOIN especie ON mascota.idEspecie = especie.idEspecia INNER JOIN persona ON mascota.idPropietario = persona.idPersona";
+        $this->consulta = "SELECT `idMascota`, `nombreMascota`, `colorMascota`, `razaMascota`, `idEspecie`, `fechaAgenda`, `idPropietario`,`nombreEspecie`, `nombrePersona`, `cedulaPersona` FROM `mascota` INNER JOIN especie ON mascota.idEspecie = especie.idEspecia INNER JOIN persona ON mascota.idPropietario = persona.idPersona";
         $this->resultado = $this->conexion->conn->prepare($this->consulta);
         $this->resultado->execute();
         $mascota = array();
@@ -60,6 +60,17 @@ class Consulta{
         $this->consulta = "SELECT `idMascota`, `nombreMascota`, `colorMascota`, `razaMascota`, `idEspecie`, `fechaAgenda`, `idPropietario` ,`nombreEspecie` FROM mascota INNER JOIN especie ON mascota.idEspecie = especie.idEspecia WHERE idPropietario = :propietario";
         $this->resultado = $this->conexion->conn->prepare($this->consulta);
         $this->resultado->bindParam(":propietario",$_SESSION['idPersona'],PDO::PARAM_INT);
+        $this->resultado->execute();
+        $mascota = array();
+        while($mascotas = $this->resultado->fetch(PDO::FETCH_ASSOC)):
+            $mascota[] = $mascotas;
+        endwhile;
+        return json_encode($mascota);
+    }
+    function consultaMascotaCedula(){
+        $this->dueñoMascota = filter_var($this->dueñoMascota,FILTER_SANITIZE_NUMBER_INT);
+        $this->consulta = "SELECT `idMascota`, `nombreMascota`, `colorMascota`, `razaMascota`, `idEspecie`, `fechaAgenda`, `idPropietario`,`nombreEspecie`, `nombrePersona`,`cedulaPersona` FROM `mascota` INNER JOIN especie ON mascota.idEspecie = especie.idEspecia INNER JOIN persona ON mascota.idPropietario = persona.idPersona WHERE cedulaPersona LIKE '%$this->dueñoMascota%' ";
+        $this->resultado = $this->conexion->conn->prepare($this->consulta);
         $this->resultado->execute();
         $mascota = array();
         while($mascotas = $this->resultado->fetch(PDO::FETCH_ASSOC)):
@@ -99,6 +110,10 @@ if(isset($_GET['accion'])){
     if($_GET['accion']==='mascota'){
         echo $objeto->consultarMascotaUsuario();
     }
+    if($_GET['accion']==='consultausu'){
+        $objeto->setDueñoMascota($_GET['cedula']);
+        echo $objeto->consultaMascotaCedula();
+    }
 }
 if(isset($_POST['accion'])){
 
@@ -112,6 +127,7 @@ if(isset($_POST['accion'])){
         echo $objeto->insertarCitas();
     
     }
+
 }
 
 

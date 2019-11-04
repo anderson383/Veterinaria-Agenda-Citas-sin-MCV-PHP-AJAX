@@ -23,3 +23,6 @@ form a{
 ul span{
     font-weight: bold !important;
 }
+.table-conten{
+    transition: all .3s ease-out !important;
+}

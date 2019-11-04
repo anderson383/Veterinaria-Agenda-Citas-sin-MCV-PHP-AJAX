@@ -146,40 +146,67 @@ $(document).ready(function(){
         xhr.onload = function(){
             if(this.status === 200){
                 const respuesta = JSON.parse(xhr.responseText);
+                cargarTabla(respuesta);
+            }
+        }
+        xhr.send();
+
+    }
+    function cargarTabla(datos){
+        let i=0;
+        let tabla =  document.querySelector('#table-conten')
+        tabla.innerHTML = '';
+        for(mascota of datos){
+            i++;
+            fila = document.createElement('tr');
+            numero = document.createElement('td');
+            nombre = document.createElement('td');
+            color = document.createElement('td');
+            raza = document.createElement('td');
+            especie = document.createElement('td');
+            fecha = document.createElement('td');
+            propietario = document.createElement('td');
+            cedula = document.createElement('td');
+
+            numero.innerHTML = i;
+            fila.appendChild(numero);
+
+            nombre.innerHTML = mascota.nombreMascota;
+            fila.appendChild(nombre);
+            color.innerHTML = mascota.colorMascota;
+            fila.appendChild(color);
+            tabla.append(fila)
+            raza.innerHTML = mascota.razaMascota;
+            fila.appendChild(raza);
+            especie.innerHTML = mascota.nombreEspecie;
+            fila.appendChild(especie);
+            fecha.innerHTML = mascota.fechaAgenda;
+            fila.appendChild(fecha);
+            propietario.innerHTML = mascota.nombrePersona;
+            fila.appendChild(propietario);
+            cedula.innerHTML = mascota.cedulaPersona;
+            fila.appendChild(cedula);
+            tabla.append(fila)
+        }
+    }
+    if(document.querySelector('#inputBuscar')){
+        inputBuscar = document.querySelector('#inputBuscar');
+        $(inputBuscar).on('input',consultaMascotaUsuario);
+    }
+    function consultaMascotaUsuario(e){
+        let cedula = e.target.value;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET','Inc/funciones/consultas.modelo.php?&accion=consultausu&cedula=.'+cedula,true);
+        xhr.onload = function(){
+            if(this.status === 200){
+                const respuesta = JSON.parse(xhr.responseText);
                 console.log(respuesta);
-                let i=0;
-                let tabla =  document.querySelector('#table-conten')
-                tabla.innerHTML = '';
-                for(mascota of respuesta){
-                    console.log(mascota);
-                    i++;
-                    fila = document.createElement('tr');
-                    numero = document.createElement('td');
-                    nombre = document.createElement('td');
-                    color = document.createElement('td');
-                    raza = document.createElement('td');
-                    especie = document.createElement('td');
-                    fecha = document.createElement('td');
-                    propietario = document.createElement('td');
-
-                    numero.innerHTML = i;
-                    fila.appendChild(numero);
-
-                    nombre.innerHTML = mascota.nombreMascota;
-                    fila.appendChild(nombre);
-                    color.innerHTML = mascota.colorMascota;
-                    fila.appendChild(color);
-                    tabla.append(fila)
-                    raza.innerHTML = mascota.razaMascota;
-                    fila.appendChild(raza);
-                    especie.innerHTML = mascota.nombreEspecie;
-                    fila.appendChild(especie);
-                    fecha.innerHTML = mascota.fechaAgenda;
-                    fila.appendChild(fecha);
-                    propietario.innerHTML = mascota.nombrePersona;
-                    fila.appendChild(propietario);
-                    tabla.append(fila)
+                if(respuesta.length===0){
+                    consultarMascotas();
+                }else{
+                    cargarTabla(respuesta);
                 }
+                
             }
         }
         xhr.send();

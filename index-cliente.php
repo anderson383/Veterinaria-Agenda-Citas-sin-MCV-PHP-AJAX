@@ -40,27 +40,10 @@ revisarRolDos();
       <h1 class="mt-5 text-center"><i class="fas fa-user-times mx-2 text-info"></i>No tienes citas agendadas...</h1>
     </div>
   </div>
-
-  <div class="row mt-5" id="tabla-contente">
-    <div class="col mt-5">
-      <table class="table table-info" ID="table-mascota">
-        <h2 class="text-center bg-info m-0 p-2">Mascotas</h2>
-        <thead>
-            <tr>
-              <th>#</th>
-              <th>Tus mascotas</th>
-              <th>Color</th>
-              <th>Raza</th>
-              <th>Especie</th>
-              <th>Fecha de cita</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
+<div class="container mt-5 pt-4" id="content-mascotas">
+  
+</div>
+  
 <?php include 'Inc/templeates/footer.php' ?>
 <script src="js/main.cliente.js"></script>

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    if(document.querySelector('#table-mascota')){
+    if(document.querySelector('#content-mascotas')){
         consultarCitas();
     }
     function consultarCitas(){
@@ -21,32 +21,48 @@ $(document).ready(function(){
         xhr.send();
     }
     function cargarTabla(datos){
-        let tabla = document.querySelector('#table-mascota');
+        let content = document.querySelector('#content-mascotas');
+        content.innerHTML="";
+        let contenido ='';
+        console.log(datos)
+        let i= 0;
+        for(let i=0;i<datos.length;i++){
+            if(i%2===0){
+                contenido += `<h2 class="text-center mb-5">Tus mascotas</h2>`
+                contenido += `<div class="row">`
+            }
+            for(let mascota of datos){
+                    if(i%2===0){
+                       
+                    contenido += `   <div class="col-lg-4 mb-3">`
+                    contenido += `     <div class="card">`
+                    contenido += `           <div class="card-body clearfix">`
+                    contenido += `                <p class="m-0 float-right"><small class="text-muted">Fecha : ${mascota.fechaAgenda}</small></p>`
+                    contenido += `               <h4 class="card-title ">${mascota.nombreMascota}</h4>`
+                    contenido += `               <p class="card-text mb-0 mr-3 d-inline">Color:</p>`
+                    contenido += `               <p class="card-text m-0 d-inline">${mascota.colorMascota}</p>`
+                    contenido += `               <hr>`
+                    contenido += `              <p class="card-text mb-0 mr-3 d-inline">Raza:</p>`
+                    contenido += `               <p class="card-text m-0 d-inline">${mascota.razaMascota}</p>`
+                    contenido += `               <hr>`
+                    contenido += `              <p class="card-text mb-0 mr-3 d-inline">Especie:</p>`
+                    contenido += `               <p class="card-text m-0 d-inline">${mascota.nombreEspecie}</p>`
+                    contenido += `           </div>`
+                    contenido += `          <div class="card-footer">`
+                    contenido += `              <a name="" id="" class="btn btn-info btn-sm float-right" href="#" role="button">Ver más información</a>`
+                    contenido += `          </div>`
+                    contenido += `      </div>`
+                    contenido += `   </div>`
+                    }
 
-        i=0;
-        for(let mascota of datos){
-            i++;
-            fila = document.createElement('tr');
-            numero = document.createElement('td');
-            nombre = document.createElement('td');
-            color = document.createElement('td');
-            raza = document.createElement('td');
-            especie = document.createElement('td');
-            fecha = document.createElement('td');
-            numero.innerHTML = i;
-            fila.appendChild(numero);
-            nombre.innerHTML = mascota.nombreMascota;
-            fila.appendChild(nombre);
-            color.innerHTML = mascota.colorMascota;
-            fila.appendChild(color);
-            tabla.append(fila)
-            raza.innerHTML = mascota.razaMascota;
-            fila.appendChild(raza);
-            especie.innerHTML = mascota.nombreEspecie;
-            fila.appendChild(especie);
-            fecha.innerHTML = mascota.fechaAgenda;
-            fila.appendChild(fecha);
-            tabla.append(fila)
+                }    
+                if(i % 2 > 0){
+                    contenido += `</div>`
+                    datos.length = [];
+                }
+                
         }
+        
+        content.innerHTML = contenido;
     }
 })

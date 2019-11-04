@@ -8,7 +8,7 @@ revisarRol();
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon text-white"></span>
   </button>
-  <a class="navbar-brand  text-white" href="#"><i class="fas fa-compass"></i> <b>ADMINISTRADOR</b></a>
+  <a class="navbar-brand  text-white" href="#"><i class="fas fa-compass fa-spin"></i> <b>ADMINISTRADOR</b></a>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 d-flex justify-content-betee">
@@ -27,7 +27,7 @@ revisarRol();
     </ul>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 d-flex justify-content-betee">
       <li class="nav-item">
-        <a class="nav-link  text-white" href="#"><i class="far fa-user mx-2 text-verde"></i><span><?php echo $_SESSION['nombre'] ?></span></a>
+        <a class="nav-link  text-white" href="#"><i class="far fa-user mx-2 text-verde "></i><span><?php echo $_SESSION['nombre'] ?></span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-white" href="login.php?&cerrar=true" tabindex="-1" >Cerrar sesión</a>
@@ -75,11 +75,22 @@ revisarRol();
       </div>
     </div>
   </form>
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <h3 class="text-center mb-3">Buscar por cedula de usuario</h3>
+      <div class="input-group">
+        <input type="number" class="form-control" placeholder="Buscar mascota por cedula" id="inputBuscar" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+          <div class="input-group-append" id="button-addon4">
+            <button class="btn btn-danger" type="button" id="btnBuscar">Buscar</button>
+          </div>
+      </div>
+    </div>
+  </div>
   <div class="row mt-5">
     <div class="col">
-      <table class="table table-success">
-        <thead>
-          <tr>
+      <table class="table table-responsive-md table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr class="text-center">
             <th>#</th>
             <th>Mascota</th>
             <th>Color</th>
@@ -87,6 +98,7 @@ revisarRol();
             <th>Especie</th>
             <th>Fecha</th>
             <th>Propietario</th>
+            <th>Cedula</th>
           </tr>
         </thead>
         <tbody id="table-conten">
